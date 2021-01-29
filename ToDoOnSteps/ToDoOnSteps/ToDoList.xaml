@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             x:Class="ToDoOnSteps.ToDoList">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+"  Clicked="AddTask"  Order="Primary"/>
+    </ContentPage.ToolbarItems>
+
+    <ListView x:Name="tasksListView" ItemSelected="tasksListView_ItemSelected">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell Height="65">
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox x:Name="checkBox" IsChecked="{Binding Checked}" CheckedChanged="checkBox_CheckedChanged"/>
+                        <Label x:Name="printTask" Text="{Binding Name}" VerticalOptions="Center" FontSize="Medium">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Source= {x:Reference checkBox}, Path= IsChecked}"
+                                             Value="false">
+                                    <Setter Property="TextDecorations"
+                                            Value="None"/>
+
+                                </DataTrigger>
+
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Source= {x:Reference checkBox}, Path= IsChecked}"
+                                             Value="true">
+                                    <Setter Property="TextDecorations"
+                                            Value="Strikethrough"/>
+
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>     
+    </ListView>
+</ContentPage>
